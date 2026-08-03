@@ -3,7 +3,12 @@
 //   1) adjuntar el token JWT guardado tras el login,
 //   2) convertir respuestas de error (status >= 400) en excepciones con
 //      el mensaje que devuelve la API, para poder mostrarlo en la UI.
-const BASE_URL = '/api';
+// En desarrollo local, '/api' se resuelve vía el proxy de vite.config.js
+// hacia http://localhost:4000. En producción (Vercel), el frontend y el
+// backend son dos despliegues distintos con dominios distintos, así que
+// se necesita la URL completa del backend — se toma de la variable de
+// entorno VITE_API_URL configurada en el proyecto de Vercel del frontend.
+const BASE_URL = import.meta.env.VITE_API_URL || '/api';
 
 function getToken() {
   return localStorage.getItem('tecnomarket_token');

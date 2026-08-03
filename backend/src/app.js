@@ -15,7 +15,15 @@ const reportRoutes = require('./routes/reportRoutes');
 
 const app = express();
 
-app.use(cors());
+// En desarrollo (sin FRONTEND_URL definida) se permite cualquier origen.
+// En producción se restringe al dominio del frontend desplegado en
+// Vercel, definido por la variable de entorno FRONTEND_URL
+// (ej. https://tecnomarket-frontend.vercel.app), para que ningún otro
+// sitio pueda llamar a la API desde el navegador.
+const corsOptions = process.env.FRONTEND_URL
+  ? { origin: process.env.FRONTEND_URL }
+  : {};
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(morgan(process.env.NODE_ENV === 'development' ? 'dev' : 'combined'));
 
