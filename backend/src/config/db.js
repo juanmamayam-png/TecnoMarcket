@@ -3,6 +3,7 @@
 // (Usuario, Producto, Pedido, Factura, etc.) a clases de JavaScript.
 const { Sequelize } = require('sequelize');
 require('dotenv').config();
+require('pg');
 
 const commonOptions = {
   dialect: 'postgres',
